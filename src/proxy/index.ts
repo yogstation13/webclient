@@ -350,6 +350,7 @@ app.use("/browse/:userHash", async (req, res, next) => {
 		if(fetch_res.redirected && domain.get(path) == url) {
 			domain.set(path, url = fetch_res.url); // don't follow the redirect next time.
 		}
+		res.setHeader('Content-Security-Policy', "base-uri 'self';")
 		res.setHeader('cache-control', 'no-cache');
 		for(let header of ['content-disposition', 'content-type', 'last-modified']) {
 			let val = fetch_res.headers.get(header);
