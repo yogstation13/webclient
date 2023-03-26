@@ -3,7 +3,7 @@ FROM node:18-alpine as build
 ENV NODE_ENV=production
 WORKDIR /app
 
-COPY .
+COPY . .
 RUN yarn install --immutable
 RUN yarn run webclient:build
 
