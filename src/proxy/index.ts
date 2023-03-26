@@ -153,7 +153,7 @@ function getProxyAgent(request : IncomingMessage, socket : Socket, url? : string
 			let [dstaddr, dstport] = addr.split(":");
 			let socket = connect(+dstport, dstaddr);
 			let port = 32768 + Math.floor(Math.random() * 28232);
-			socket.write(`PROXY TCP4 ${address} ${byond_host} ${port} ${byond_port}\r\n`);
+			socket.write(`PROXY TCP4 ${address} 255.255.255.255 ${port} ${byond_port}\r\n`);
 			return socket;
 		}
 	}
