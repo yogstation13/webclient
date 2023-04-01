@@ -160,10 +160,15 @@ export class Icon {
 				reject(image);
 			}
 		});*/
-		this.reparse_dmi(blob);
-		return this.image_promise = createImageBitmap(blob, {premultiplyAlpha: "none"}).then(image => {
+		let reparse_promise = this.reparse_dmi(blob);
+		return this.image_promise = createImageBitmap(blob, {premultiplyAlpha: "none"}).then(async image => {
 			this.sheet_width = image.width / this.width;
 			this.sheet_height = image.height / this.height;
+			try {
+				await reparse_promise;
+			} catch(e) {
+				console.error(e);
+			}
 			return this.image = Object.assign(image, {src: url});
 		});
 	}
