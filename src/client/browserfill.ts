@@ -77,7 +77,9 @@ const byond = window.byond = {
 		if (tgui_patch_match) {
 			let setupDrag = tgui_patch_match[1];
 			str = str.replace(/drag start(?:\n|.)*?,/, x => x + `${setupDrag}(),`)
+			str = str.replace(/drag end(?:\n|.)*?,/, x => x + `${setupDrag}(),`)
 		}
+		str = str.replace("isStyleSheetLoaded(node, url)", "true")
 		window.eval(str);
 	},
 	outputtarget: window_output_target,
