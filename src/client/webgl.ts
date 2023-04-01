@@ -231,6 +231,11 @@ export class GlHolder {
 
 			let num_triangles = 0;
 			for(let item of items) {
+				if(item.cached_icon_version != icon_info.version) {
+					item.cached_data = null;
+					item.cached_icon_version = icon_info.version;
+					item.clear_state_cache();
+				}
 				num_triangles += item.triangle_count;
 			}
 			let attribs = new Float32Array(15*3*num_triangles);
@@ -238,17 +243,13 @@ export class GlHolder {
 			this.last_positions = attribs;
 			let offset = 0;
 			for(let item of items) {
-				if(item.is_static && item.cached_data && item.cached_icon_version == icon_info.version) {
+				if(item.is_static && item.cached_data) {
 					attribs.set(item.cached_data, offset);
 					offset += item.cached_data.length;
 					continue;
 				}
 				let prev_offset = offset;
-				if(item.cached_icon_version != icon_info.version) {
-					item.clear_state_cache();
-				}
 				offset = item.write(attribs, iattribs, offset, icon_info, this.client.time, act_camera_pos, this.camera_yaw);
-				item.cached_icon_version = icon_info.version;
 				if(item.is_static) item.cached_data = attribs.slice(prev_offset, offset);
 			}
 
