@@ -131,6 +131,7 @@ export class FloorRenderPlan extends BatchRenderPlan {
 	icon_state_instance? : IconState|null;
 	clear_state_cache() {
 		this.icon_state_instance = undefined;
+		this.triangle_count = 2;
 	}
 	write(attribs : Float32Array, iattribs : Uint32Array, offset : number, icon_info : Icon, time : number, camera_pos : vec3) {
 		this.is_static = true;
@@ -196,6 +197,7 @@ export class BoxRenderPlan extends BatchRenderPlan {
 	icon_state_instance? : IconState|null;
 	clear_state_cache() {
 		this.icon_state_instance = undefined;
+		this.triangle_count = 10;
 	}
 	write(attribs : Float32Array, iattribs : Uint32Array, offset : number, icon_info : Icon, time : number, camera_pos : vec3) {
 		this.is_static = true;
@@ -232,6 +234,7 @@ export class BillboardRenderPlan extends BatchRenderPlan {
 	icon_state_instance? : IconState|null;
 	clear_state_cache() {
 		this.icon_state_instance = undefined;
+		this.triangle_count = this.double_sided ? 4 : 2;
 	}
 	write(attribs : Float32Array, iattribs : Uint32Array, offset : number, icon_info : Icon, time : number, camera_pos : vec3, camera_yaw : number) {
 		if(this.icon_state_instance === undefined) {
@@ -314,6 +317,7 @@ export class WallmountRenderPlan extends BatchRenderPlan {
 	icon_state_instance? : IconState|null;
 	clear_state_cache() {
 		this.icon_state_instance = undefined;
+		this.triangle_count = 8;
 	}
 	write(attribs : Float32Array, iattribs : Uint32Array, offset : number, icon_info : Icon, time : number, camera_pos : vec3) {
 		const ft = this.appearance.flick_time;
@@ -378,6 +382,7 @@ export class WindoorRenderPlan extends BatchRenderPlan {
 		this.handle_inst = undefined;
 		this.surface_inst = undefined;
 		this.edge_inst = undefined;
+		this.triangle_count = 10;
 	}
 	constructor(atom_id : number, public appearance : Appearance, public x : number, public y : number) {
 		super();
@@ -517,6 +522,7 @@ export class EdgeRenderPlan extends BatchRenderPlan {
 	clear_state_cache() {
 		this.icon_state_instance = undefined;
 		this.surface_instance = undefined;
+		this.triangle_count = 8;
 	}
 	write(attribs: Float32Array, iattribs: Uint32Array, offset: number, icon_info: Icon, time : number) {
 		const ft = this.appearance.flick_time;
@@ -575,6 +581,7 @@ export class DiagonalWallRenderPlan extends BatchRenderPlan {
 	face_state_instances : Array<IconState|null>|undefined;
 	clear_state_cache() {
 		this.face_state_instances = undefined;
+		this.triangle_count = this.face_states.length * 2;
 	}
 	write(attribs : Float32Array, iattribs : Uint32Array, offset : number, icon_info : Icon, time : number, camera_pos : vec3) {
 		this.is_static = true;
