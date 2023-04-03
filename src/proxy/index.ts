@@ -201,7 +201,7 @@ async function upgrade_request(request : IncomingMessage, socket : Socket, head 
 			wss_header_map.set(request, return_headers);
 		}
 		let login_token = `wcp:${(await promisify(randomBytes)(32)).toString("hex")}`;
-		let user_info_str = `${encodeURIComponent(user_info.key).replace(/%20/g, " ")};gender=${user_info.gender}`;
+		let user_info_str = `${user_info.key};gender=${user_info.gender}`;
 		let [byond_host, byond_port] = config.byond_addr.split(":");
 		await sendTopic({ // Tell webclient_patches to expect us
 			host: byond_host,
