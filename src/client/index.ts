@@ -1065,7 +1065,7 @@ export class ByondClient {
 				if(is_screen) atom.enabled_screen = true;
 				else atom.enabled = true;
 				if((flags & 3) == 1) {
-					atom.reset();
+					atom.reset(); // 
 				}
 			}
 			if(flags & 4) {
