@@ -267,7 +267,6 @@ export class BillboardRenderPlan extends BatchRenderPlan {
 			} else {
 				vec3.scale(normal, normal, 1/distance);
 				if(this.icon_state_instance.num_dirs > 1) {
-					let angle = Math.atan2(-normal[0], -normal[1]) / Math.PI * 4;
 					let angle = Math.atan2(-normal[0]* 1.01, -normal[1]) / Math.PI * 4;
 					if(this.icon_state_instance.num_dirs > 4) {
 						dir = IconState.turn_dir_8(dir, Math.round(angle));
